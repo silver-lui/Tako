@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tako</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&display=swap">
+    <style>
+        body {
+            font-family: 'Lobster', cursive;
+            text-align: center;
+            background: linear-gradient(to bottom, #ffb6c1, #ffd3e5); /* Pink gradient background */
+            margin: 0;
+            padding: 0;
+            transition: background 0.5s ease; /* Smooth transition for background color */
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+        }
+        h1 {
+            font-size: 48px;
+            color: #e84a5f; /* Raspberry pink heading color */
+            margin-bottom: 20px;
+            transition: color 0.5s ease; /* Smooth transition for color change */
+        }
+        h1:hover {
+            color: #a03e4e; /* Lighter pink on hover */
+        }
+        #game-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #fff; /* White background for game container */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+            margin-top: 30px;
+            transition: box-shadow 0.3s ease; /* Smooth transition for box shadow */
+            position: relative;
+        }
+        #game-container:hover {
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+        }
+        #word-scramble {
+            font-size: 24px;
+            color: #4d4d4d; /* Dark gray text color */
+            transition: color 0.5s ease; /* Smooth transition for color change */
+            margin-bottom: 20px;
+        }
+        #input-answer {
+            margin-top: 15px;
+            padding: 10px;
+            font-size: 18px;
+            width: 200px;
+            border: 2px solid #e84a5f; /* Raspberry pink border */
+            border-radius: 8px;
+            margin-bottom: 20px;
+            transition: border-color 0.5s ease; /* Smooth transition for border color */
+        }
+        #input-answer:hover {
+            border-color: #a03e4e; /* Lighter pink border on hover */
+        }
+        #check-answer {
+            margin-top: 15px;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #6ab04c; /* Green button */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.5s ease; /* Smooth transition for background color */
+        }
+        #check-answer:hover {
+            background-color: #5b9745; /* Darker green on hover */
+        }
+        #gift-box {
+            cursor: pointer;
+            transition: transform 0.3s ease; /* Smooth transition for scaling */
+        }
+        #gift-box:hover {
+            transform: scale(1.1); /* Slightly scale up on hover */
+        }
+        #surprise-message {
+            display: none;
+            margin-top: 30px;
+            font-size: 22px;
+            color: #e84a5f; /* Raspberry pink text color */
+            transition: color 0.5s ease; /* Smooth transition for color change */
+        }
+        #poem-frame {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(45deg, #e84a5f, #a03e4e); /* Raspberry pink gradient frame background */
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Subtle shadow effect */
+            position: relative;
+        }
+        #love-poem {
+            font-size: 20px;
+            color: #fff; /* White text color inside the frame */
+            text-align: center;
+            line-height: 1.5;
+        }
+        .frame-decoration {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 5px solid #e84a5f; /* Raspberry pink border */
+            border-radius: 25px; /* Adjust the radius for a more rounded look */
+            z-index: -1;
+        }
+        .decorative-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #e84a5f; /* Raspberry pink line color */
+            top: 50%;
+            z-index: -1;
+        }
+        .decorative-circle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #e84a5f; /* Raspberry pink circle color */
+            border-radius: 50%;
+            z-index: -1;
+        }
+        .decorative-circle-2 {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #a03e4e; /* Darker pink circle color */
+            border-radius: 50%;
+            z-index: -1;
+        }
+        .heart-emoji {
+            position: absolute;
+            color: #e84a5f; /* Raspberry pink heart color */
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>💖 Open Gift 💖</h1>
+        <div id="game-container">
+            <p id="word-scramble"></p>
+            <input type="text" id="input-answer" placeholder="Your Answer">
+            <button id="check-answer" onclick="checkAnswer()">Check Answer</button>
+            <p id="surprise-message">You Are My Only Love Forever And Ever</p>
+        </div>
+        <img id="gift-box" src="gift-box.png" alt="Gift Box" width="200" height="200" onclick="startGame()">
+        <div id="poem-frame">
+            <div class="frame-decoration"></div>
+            <p id="love-poem">
+                Sisi, my love, a dream so true,<br>
+                In your eyes, skies of blue.<br>
+                Your laughter, a melody so sweet,<br>
+                With you, my heart finds its beat.<br>      
+            </p>
+            <div class="decorative-line"></div>
+            <div class="decorative-circle" style="top: 10%; left: 10%;"></div>
+            <div class="decorative-circle" style="top: 60%; left: 80%;"></div>
+            <div class="decorative-circle-2" style="top: 80%; left: 30%;"></div>
+        </div>
+    </div>
+
+    <script>
+        let isGameStarted = false;
+        let currentWordIndex = 0;
+        const romanticWords = ['LOVE', 'YOU', 'FOREVER', 'AND', 'SORRY', 'I KNOW', 'YOU', "LOVE", "ME", "TOO"];
+
+        function startGame() {
+            const giftBoxHeading = document.querySelector('#container h1');
+            const gameContainer = document.getElementById('game-container');
+
+            // Change heading text
+            giftBoxHeading.textContent = '💖 Write Correct Word 💖';
+
+            // Hide love poem
+            document.getElementById('love-poem').style.display = 'none';
+
+            // Show the game container
+            gameContainer.style.display = 'flex';
+
+            if (!isGameStarted) {
+                displayNextWord();
+                isGameStarted = true;
+            }
+        }
+
+        function displayNextWord() {
+            const wordScrambleElement = document.getElementById('word-scramble');
+            const inputAnswerElement = document.getElementById('input-answer');
+
+            if (currentWordIndex < romanticWords.length) {
+                const scrambledWord = scrambleWord(romanticWords[currentWordIndex]);
+                wordScrambleElement.textContent = scrambledWord;
+                inputAnswerElement.value = '';
+            } else {
+                // If all words are unscrambled, show the congratulatory message.
+                document.getElementById('word-scramble').style.display = 'none';
+                document.getElementById('input-answer').style.display = 'none';
+                document.getElementById('check-answer').style.display = 'none';
+                document.getElementById('surprise-message').style.display = 'block';
+            }
+        }
+
+        function scrambleWord(word) {
+            return word.split('').sort(() => Math.random() - 0.5).join('');
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('input-answer').value.toUpperCase();
+            const correctAnswer = romanticWords[currentWordIndex];
+
+            if (userAnswer === correctAnswer) {
+                // Move to the next word
+                currentWordIndex++;
+                displayNextWord();
+            } else {
+                alert('Oops! Try again.');
+            }
+        }
+    </script>
+</body>
+</html>
